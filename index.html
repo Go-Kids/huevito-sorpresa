@@ -8,17 +8,34 @@
 </head>
 <body>
 
-<div class="container">
-  <img
-    id="egg"
-    src="assets/huevito_cerrado.png"
-    alt="Huevito"
-  />
+<div class="background-overlay"></div>
 
-  <h2>Pon tu código para abrir tu huevito</h2>
+<div class="side-decoration left">
+  <img src="assets/GoKIDS1.jpeg" alt="Centro GoKids 1">
+</div>
+<div class="side-decoration right">
+  <img src="assets/GoKIDS2.jpeg" alt="Centro GoKids 2">
+</div>
 
-  <input id="codeInput" placeholder="Ej: ABC123" />
-  <button id="openBtn">Abrir huevito</button>
+<div class="main-wrapper">
+  <header>
+    <img src="assets/GoKIDSPrincipal.png" alt="GoKids Logo" class="main-logo">
+  </header>
+
+  <div class="container">
+    <img
+      id="egg"
+      src="assets/huevito_cerrado.png"
+      alt="Huevito"
+    />
+
+    <h2 id="instruction">Pon tu código para abrir tu huevito</h2>
+
+    <div class="controls">
+      <input id="codeInput" placeholder="Ej: GK-S1" />
+      <button id="openBtn">Abrir huevito</button>
+    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
