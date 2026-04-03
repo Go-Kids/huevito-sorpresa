@@ -21,7 +21,7 @@ if (codeFromUrl && REWARDS[codeFromUrl]) { // Caso 1: Código válido en la URL
   // Ocultamos la interfaz de texto y preparamos el huevo para clic
   codeInput.style.display = "none";
   button.style.display = "none";
-  instruction.textContent = "¡Haz clic en el huevito para descubrir tu sorpresa!";
+  instruction.textContent = "¡Toca el huevito para descubrir tu sorpresa!";
   egg.style.cursor = "pointer";
   activeReward = REWARDS[codeFromUrl];
 } else { // Caso 2: No hay código o es inválido (URL cruda cae aquí)
