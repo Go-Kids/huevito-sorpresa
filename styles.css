@@ -7,7 +7,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f0f4f8;
-  overflow-x: hidden;
+  overflow: hidden; /* Evita cualquier tipo de scroll */
 }
 
 /* Fondo decorativo con las fotos del centro */
@@ -19,7 +19,8 @@ body {
   height: 100%;
   background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.7) 100%),
               url('assets/fondo.jpg');
-  background-size: cover;
+  background-size: cover; /* Ajuste responsive */
+  background-position: center center;
   z-index: -2;
 }
 
@@ -35,7 +36,10 @@ body {
 .main-logo {
   max-width: 280px;
   margin-bottom: 20px;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.05));
+  border-radius: 20px;
+  border: 8px solid white;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  background-color: white;
 }
 
 .container {
@@ -121,7 +125,7 @@ button:hover {
 .side-decoration {
   position: fixed;
   top: 50%;
-  width: 150px;
+  width: 300px; /* Tamaño duplicado para escritorio */
   z-index: -1;
   transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -130,22 +134,22 @@ button:hover {
   width: 100%;
   height: auto;
   object-fit: cover;
-  border-radius: 15px;
-  border: 6px solid white;
+  border-radius: 20px;
+  border: 8px solid white;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
 }
 
 .side-decoration.left {
-  left: 20px;
+  left: 40px;
   transform: translateY(-50%) rotate(-6deg);
 }
 
 .side-decoration.right {
-  right: 20px;
+  right: 40px;
   transform: translateY(-50%) rotate(6deg);
 }
 
-/* Ocultar en pantallas medianas/pequeñas para no tapar el contenido central */
-@media (max-width: 900px) {
+/* Ocultar en pantallas menores a 1300px para evitar que se amontonen */
+@media (max-width: 1300px) {
   .side-decoration { display: none; }
 }

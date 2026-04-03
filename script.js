@@ -24,10 +24,10 @@ if (codeFromUrl && REWARDS[codeFromUrl]) { // Caso 1: Código válido en la URL
   instruction.textContent = "¡Haz clic en el huevito para descubrir tu sorpresa!";
   egg.style.cursor = "pointer";
   activeReward = REWARDS[codeFromUrl];
-} else if (codeFromUrl) { // Caso 2: Hay un código en la URL, pero es inválido
+} else { // Caso 2: No hay código o es inválido (URL cruda cae aquí)
   codeInput.style.display = "none";
   button.style.display = "none";
-  instruction.textContent = "Código inválido. Por favor, consulta a GoKids.";
+  instruction.textContent = "Acceso no válido. Por favor, usa el enlace enviado por GoKids.";
   egg.style.cursor = "default"; // Aseguramos que el cursor no sea de puntero
 }
 
@@ -39,6 +39,9 @@ const openEgg = (rewardImage) => {
 
   // Animación de apertura
   egg.classList.add("opening");
+
+  // Ocultar la etiqueta de instrucción al abrir
+  instruction.style.display = "none";
 
   // Cambia al huevito abierto
   setTimeout(() => {
