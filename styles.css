@@ -1,0 +1,42 @@
+body {
+  font-family: system-ui, sans-serif;
+  background: #f6fcfb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+#egg {
+  width: 260px;
+  transition: transform .2s ease;
+}
+
+.opening {
+  animation: shake .6s ease-in-out;
+}
+
+@keyframes shake {
+  0%   { transform: scale(1) rotate(0); }
+  25%  { transform: scale(1.05) rotate(-4deg); }
+  50%  { transform: scale(1.1) rotate(4deg); }
+  75%  { transform: scale(1.05) rotate(-4deg); }
+  100% { transform: scale(1) rotate(0); }
+}
+
+input {
+  padding: 10px;
+  margin-top: 16px;
+  width: 220px;
+}
+
+button {
+  margin-top: 12px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-weight: bold;
+}
