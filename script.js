@@ -1,6 +1,4 @@
 const egg = document.getElementById("egg");
-const button = document.getElementById("openBtn");
-const codeInput = document.getElementById("codeInput");
 const instruction = document.getElementById("instruction");
 
 // Mapeo de códigos a sus respectivas imágenes de premio
@@ -11,6 +9,12 @@ const REWARDS = {
   "GK-S4": "assets/25matricula.png"
 };
 
+// Pre-cargar imágenes de recompensa para evitar retrasos al mostrarlas
+Object.values(REWARDS).forEach(imagePath => {
+  const img = new Image();
+  img.src = imagePath;
+});
+
 // Revisar si hay un código en la URL (ej: index.html?code=SORPRESA)
 const urlParams = new URLSearchParams(window.location.search);
 const codeFromUrl = urlParams.get('code')?.toUpperCase();
@@ -18,22 +22,17 @@ const codeFromUrl = urlParams.get('code')?.toUpperCase();
 let activeReward = null;
 
 if (codeFromUrl && REWARDS[codeFromUrl]) { // Caso 1: Código válido en la URL
-  // Ocultamos la interfaz de texto y preparamos el huevo para clic
-  codeInput.style.display = "none";
-  button.style.display = "none";
   instruction.textContent = "¡Toca el huevito para descubrir tu sorpresa!";
   egg.style.cursor = "pointer";
   activeReward = REWARDS[codeFromUrl];
 } else { // Caso 2: No hay código o es inválido (URL cruda cae aquí)
-  codeInput.style.display = "none";
-  button.style.display = "none";
-  instruction.textContent = "Acceso no válido. Por favor, usa el enlace enviado por GoKids.";
+  instruction.innerHTML = "¡Hola! Para ver tu sorpresa, por favor usa el enlace que te envió GoKids.<br>¡Te esperamos!";
   egg.style.cursor = "default"; // Aseguramos que el cursor no sea de puntero
 }
 
 const openEgg = (rewardImage) => {
   // Evitar que se repita la animación si ya está abriendo
-  if (egg.classList.contains("opening") || egg.src.includes("abierto")) {
+  if (egg.classList.contains("opening") || egg.classList.contains("opened")) {
     return;
   }
 
@@ -47,28 +46,14 @@ const openEgg = (rewardImage) => {
   setTimeout(() => {
     egg.src = rewardImage;
     egg.classList.remove("opening");
+    egg.classList.add("opened");
     egg.style.cursor = "default";
-  }, 700);
-
-  button.disabled = true;
-  codeInput.disabled = true;
+  }, 600); // Ajustado para que coincida con la duración de la animación 'shake' (0.6s)
 };
 
 // Evento al hacer clic directamente en el huevo
 egg.addEventListener("click", () => {
   if (activeReward) {
     openEgg(activeReward);
-  }
-});
-
-// Evento para el botón (mantiene compatibilidad manual)
-button.addEventListener("click", () => {
-  const code = codeInput.value.trim().toUpperCase();
-
-  if (REWARDS[code]) {
-    openEgg(REWARDS[code]);
-  } else {
-    alert("Código incorrecto. Inténtalo de nuevo.");
-    return;
   }
 });

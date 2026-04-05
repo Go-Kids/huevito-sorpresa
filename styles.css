@@ -7,7 +7,7 @@ body {
   align-items: center;
   min-height: 100vh;
   background-color: #f0f4f8;
-  overflow: hidden; /* Evita cualquier tipo de scroll */
+  overflow-y: auto; /* Permite scroll vertical si el contenido supera la altura */
 }
 
 /* Fondo decorativo con las fotos del centro */
@@ -27,15 +27,27 @@ body {
 .main-wrapper {
   width: 100%;
   max-width: 500px;
+  min-height: 100vh; /* Ocupa toda la altura para permitir el centrado dinámico */
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  flex: 1; /* Toma el espacio superior disponible */
+  display: flex;
+  align-items: center; /* Centra el logo verticalmente en ese espacio */
+  justify-content: center;
+  width: 100%;
 }
 
 .main-logo {
-  max-width: 280px;
-  margin-bottom: 20px;
+  width: 85%;
+  max-width: 340px;
   border-radius: 20px;
   border: 8px solid white;
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
@@ -50,18 +62,24 @@ body {
   box-shadow: 0 15px 35px rgba(0,0,0,0.1);
   width: 100%;
   box-sizing: border-box;
-  /* Esto hace que el fondo blanco de las imágenes del huevo sea invisible */
+}
+
+/* Espaciador invisible para equilibrar el centrado vertical del contenedor */
+.main-wrapper::after {
+  content: "";
+  flex: 1;
 }
 
 #egg {
   width: 100%;
-  max-width: 300px;
+  max-width: 345px;
   height: auto;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-#egg:hover {
+#egg:not(.opened):hover {
   transform: scale(1.05);
 }
 
@@ -83,42 +101,32 @@ h2 {
   100% { transform: scale(1) rotate(0); }
 }
 
-.controls {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: center;
+/* Ajustes para pantallas pequeñas o con poca altura (como iPhone 10) */
+@media (max-width: 480px), (max-height: 750px) {
+  .container {
+    padding: 20px 15px; /* Menos espacio interno */
+  }
+  #egg {
+    max-width: 315px; /* Aumentado significativamente para que las letras se lean bien en móviles */
+  }
+  h2 {
+    font-size: 1.2rem;
+    margin: 10px 0 20px 0;
+  }
 }
 
-input {
-  padding: 12px 20px;
-  border: 2px solid #e0e6ed;
-  border-radius: 12px;
-  width: 80%;
-  font-size: 1rem;
-  outline: none;
-  transition: border-color 0.3s;
+/* Tamaño intermedio para celulares con pantalla estándar */
+@media (max-width: 480px) {
+  .main-logo {
+    max-width: 250px;
+  }
 }
 
-input:focus {
-  border-color: #3498db;
-}
-
-button {
-  background: #3498db;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1rem;
-  transition: background 0.3s, transform 0.2s;
-}
-
-button:hover {
-  background: #2980b9;
-  transform: translateY(-2px);
+/* Tamaño compacto para iPhone 10 o pantallas con poca altura disponible */
+@media (max-height: 750px) {
+  .main-logo {
+    max-width: 180px;
+  }
 }
 
 /* Decoraciones laterales con las fotos del centro */
@@ -140,12 +148,12 @@ button:hover {
 }
 
 .side-decoration.left {
-  left: 40px;
+  left: calc(15% - 140px);
   transform: translateY(-50%) rotate(-6deg);
 }
 
 .side-decoration.right {
-  right: 40px;
+  right: calc(15% - 140px);
   transform: translateY(-50%) rotate(6deg);
 }
 
